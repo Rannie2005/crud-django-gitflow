@@ -285,13 +285,10 @@
                             {% endif %}
                         </form>
                         
-<<<<<<< HEAD
-=======
-                        <a href="{% url 'perfil' %}" class="btn-perfil">👤 Mi Perfil</a>
->>>>>>> feature/mejoras-UI
-                        <span class="user-welcome">👤 Hola, <strong>{{ user.username }}</strong></span>
+                        <span class="user-welcome">Hola, <strong>{{ user.username }}</strong></span>
                         <a href="{% url 'logout' %}" class="btn-logout">🚪 Cerrar Sesión</a>
                         <a href="{% url 'crear_nota' %}" class="btn-nueva">➕ Nueva Nota</a>
+                        <a href="{% url 'perfil' %}" class="btn-nueva">👤Perfil</a>
                     {% else %}
                         <a href="{% url 'login' %}" class="btn-login-header">🔐 Iniciar Sesión</a>
                         <a href="{% url 'registro' %}" class="btn-registro-header">📝 Registrarse</a>

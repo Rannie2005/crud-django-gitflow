@@ -5,19 +5,19 @@ from django.views.decorators.http import require_POST
 from django.contrib.auth import login, authenticate, logout
 from .models import Nota
 from .forms import NotaForm, RegistroForm
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 
-<<<<<<< HEAD
+
+
 
 def get_query(request):
     """Función auxiliar para obtener query de búsqueda"""
-=======
-def get_query(request):
->>>>>>> feature/mejoras-UI
     return request.GET.get('q', '')
+
 
 @login_required
 def lista_notas(request):
-<<<<<<< HEAD
     # Obtener el término de búsqueda de la URL
     query = request.GET.get('q', '')
     
@@ -25,11 +25,6 @@ def lista_notas(request):
     notas = Nota.objects.filter(usuario=request.user)
     
     # Si hay término de búsqueda, filtrar por título
-=======
-    query = get_query(request)
-    notas = Nota.objects.filter(usuario=request.user)
-    
->>>>>>> feature/mejoras-UI
     if query:
         notas = notas.filter(titulo__icontains=query)
     
@@ -112,31 +107,62 @@ def logout_view(request):
 def perfil(request):
     query = get_query(request)
     usuario = request.user
+    
+    # Asegurar que el usuario tiene perfil
+    if not hasattr(usuario, 'perfil'):
+        from .models import Perfil
+        Perfil.objects.create(usuario=usuario)
+    
     notas_count = Nota.objects.filter(usuario=usuario).count()
     
     if request.method == 'POST':
-<<<<<<< HEAD
         # Actualizar perfil
-=======
->>>>>>> feature/mejoras-UI
         username = request.POST.get('username')
         email = request.POST.get('email')
         telefono = request.POST.get('telefono')
+        
+        # Validar teléfono (solo números, opcional)
+        if telefono and not telefono.isdigit():
+            messages.error(request, '❌ El teléfono solo debe contener números.')
+            return redirect('perfil')
         
         if username:
             usuario.username = username
         if email:
             usuario.email = email
-        if telefono:
-            usuario.perfil.telefono = telefono
-            usuario.perfil.save()
         
         usuario.save()
-        messages.success(request, '¡Perfil actualizado exitosamente!')
+        
+        # Actualizar teléfono en el perfil
+        if telefono is not None:
+            usuario.perfil.telefono = telefono if telefono else None
+            usuario.perfil.save()
+        
+        messages.success(request, '✅ ¡Perfil actualizado exitosamente!')
         return redirect('perfil')
     
     return render(request, 'notas/perfil.html', {
         'usuario': usuario,
         'notas_count': notas_count,
+        'query': query
+    })
+
+@login_required
+def cambiar_password(request):
+    query = get_query(request)
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, '✅ ¡Contraseña actualizada exitosamente!')
+            return redirect('perfil')
+        else:
+            messages.error(request, '❌ Por favor corrige los errores.')
+    else:
+        form = PasswordChangeForm(request.user)
+    
+    return render(request, 'notas/reset_password.html', {
+        'form': form,
         'query': query
     })
