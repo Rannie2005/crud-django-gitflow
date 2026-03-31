@@ -9,6 +9,7 @@ class Nota(models.Model):
     contenido = models.TextField()
     fecha_creacion = models.DateTimeField(default=timezone.now)
     fecha_actualizacion = models.DateTimeField(auto_now=True)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name='notas', null=True, blank=True)  # ← NUEVO CAMPO
     
     def __str__(self):
         return self.titulo
@@ -25,17 +26,15 @@ class Perfil(models.Model):
         return f"Perfil de {self.usuario.username}"
 
 
-# Señal para crear perfil automáticamente cuando se crea un usuario
 @receiver(post_save, sender=User)
 def crear_perfil_usuario(sender, instance, created, **kwargs):
     if created:
         Perfil.objects.create(usuario=instance)
 
 
-# Señal para guardar perfil cuando se guarda el usuario
 @receiver(post_save, sender=User)
 def guardar_perfil_usuario(sender, instance, **kwargs):
     try:
         instance.perfil.save()
     except:
-        pass  # Si no hay perfil, no hacer nada
+        pass
