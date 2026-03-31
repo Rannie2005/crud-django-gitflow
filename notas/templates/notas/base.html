@@ -22,21 +22,48 @@
             margin: 0 auto;
         }
         
-        h1 {
+        .nav {
+            background: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .nav h1 {
+            margin: 0;
+            font-size: 24px;
             color: #333;
-            margin-bottom: 20px;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .user-welcome {
+            color: #555;
+            font-size: 14px;
+        }
+        
+        .user-welcome strong {
+            color: #007bff;
         }
         
         .btn-nueva {
             display: inline-block;
             background: #28a745;
             color: white;
-            padding: 10px 20px;
+            padding: 8px 16px;
             text-decoration: none;
             border-radius: 5px;
-            margin-bottom: 20px;
             border: none;
             cursor: pointer;
+            font-size: 14px;
         }
         
         .btn-nueva:hover {
@@ -94,6 +121,45 @@
         
         .btn-cancelar:hover {
             background: #5a6268;
+        }
+        
+        .btn-login-header {
+            background: #007bff;
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        
+        .btn-login-header:hover {
+            background: #0056b3;
+        }
+        
+        .btn-registro-header {
+            background: #28a745;
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        
+        .btn-registro-header:hover {
+            background: #218838;
+        }
+        
+        .btn-logout {
+            background: #dc3545;
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        
+        .btn-logout:hover {
+            background: #c82333;
         }
         
         .notas-grid {
@@ -176,6 +242,15 @@
             border: 1px solid #c3e6cb;
         }
         
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            border: 1px solid #f5c6cb;
+        }
+        
         .empty-state {
             text-align: center;
             padding: 50px;
@@ -188,17 +263,26 @@
             margin-bottom: 20px;
             font-size: 18px;
         }
-        
-        .nav {
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- Barra de navegación -->
+        <div class="nav">
+            <h1>📝 Mis Notas</h1>
+            <div class="nav-buttons">
+                {% if user.is_authenticated %}
+                    <span class="user-welcome">👤 Hola, <strong>{{ user.username }}</strong></span>
+                    <a href="{% url 'logout' %}" class="btn-logout">🚪 Cerrar Sesión</a>
+                    <a href="{% url 'crear_nota' %}" class="btn-nueva">➕ Nueva Nota</a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn-login-header">🔐 Iniciar Sesión</a>
+                    <a href="{% url 'registro' %}" class="btn-registro-header">📝 Registrarse</a>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Mensajes -->
         {% if messages %}
         <div class="messages">
             {% for message in messages %}
@@ -206,6 +290,7 @@
             {% endfor %}
         </div>
         {% endif %}
+        
         
         {% block content %}
         {% endblock %}

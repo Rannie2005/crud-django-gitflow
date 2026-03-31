@@ -7,10 +7,12 @@ from .models import Nota
 from .forms import NotaForm, RegistroForm
 
 
+@login_required
 def lista_notas(request):
     notas = Nota.objects.all()
     return render(request, 'notas/lista_notas.html', {'notas': notas})
 
+@login_required
 def crear_nota(request):
     if request.method == 'POST':
         form = NotaForm(request.POST)
@@ -23,6 +25,7 @@ def crear_nota(request):
     
     return render(request, 'notas/crear_nota.html', {'form': form})
 
+@login_required
 def editar_nota(request, nota_id):
     nota = get_object_or_404(Nota, id=nota_id)
     
@@ -37,6 +40,7 @@ def editar_nota(request, nota_id):
     
     return render(request, 'notas/editar_nota.html', {'form': form, 'nota': nota})
 
+@login_required
 @require_POST
 def eliminar_nota(request, nota_id):
     nota = get_object_or_404(Nota, id=nota_id)
@@ -57,3 +61,24 @@ def registro(request):
         form = RegistroForm()
     
     return render(request, 'notas/registro.html', {'form': form})
+
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        
+        if user is not None:
+            login(request, user)
+            messages.success(request, f'¡Bienvenido {user.username}!')
+            return redirect('lista_notas')
+        else:
+            messages.error(request, 'Usuario o contraseña incorrectos')
+    
+    return render(request, 'notas/login.html')
+
+def logout_view(request):
+    logout(request)
+    messages.success(request, 'Sesión cerrada exitosamente')
+    return redirect('login')

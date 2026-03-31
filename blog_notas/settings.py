@@ -123,3 +123,7 @@ MESSAGE_TAGS = {
     messages.SUCCESS: 'success',
     messages.ERROR: 'error',
 }
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'lista_notas'
+LOGOUT_REDIRECT_URL = 'login'

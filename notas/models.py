@@ -18,17 +18,24 @@ class Nota(models.Model):
 
 
 class Perfil(models.Model):
-    usuario = models.OneToOneField(User, on_delete=models.CASCADE)
+    usuario = models.OneToOneField(User, on_delete=models.CASCADE, related_name='perfil')
     telefono = models.CharField(max_length=15, blank=True, null=True)
     
     def __str__(self):
         return f"Perfil de {self.usuario.username}"
 
+
+# Señal para crear perfil automáticamente cuando se crea un usuario
 @receiver(post_save, sender=User)
-def crear_perfil(sender, instance, created, **kwargs):
+def crear_perfil_usuario(sender, instance, created, **kwargs):
     if created:
         Perfil.objects.create(usuario=instance)
 
+
+# Señal para guardar perfil cuando se guarda el usuario
 @receiver(post_save, sender=User)
-def guardar_perfil(sender, instance, **kwargs):
-    instance.perfil.save()
+def guardar_perfil_usuario(sender, instance, **kwargs):
+    try:
+        instance.perfil.save()
+    except:
+        pass  # Si no hay perfil, no hacer nada
