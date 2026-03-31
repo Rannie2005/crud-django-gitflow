@@ -268,19 +268,32 @@
 <body>
     <div class="container">
         <!-- Barra de navegación -->
-        <div class="nav">
-            <h1>📝 Mis Notas</h1>
-            <div class="nav-buttons">
-                {% if user.is_authenticated %}
-                    <span class="user-welcome">👤 Hola, <strong>{{ user.username }}</strong></span>
-                    <a href="{% url 'logout' %}" class="btn-logout">🚪 Cerrar Sesión</a>
-                    <a href="{% url 'crear_nota' %}" class="btn-nueva">➕ Nueva Nota</a>
-                {% else %}
-                    <a href="{% url 'login' %}" class="btn-login-header">🔐 Iniciar Sesión</a>
-                    <a href="{% url 'registro' %}" class="btn-registro-header">📝 Registrarse</a>
-                {% endif %}
+            <div class="nav">
+                <h1>📝 Mis Notas</h1>
+                <div class="nav-buttons">
+                    {% if user.is_authenticated %}
+                        <!-- Barra de búsqueda -->
+                        <form method="get" action="{% url 'lista_notas' %}" style="margin: 0; padding: 0; background: none; box-shadow: none; display: flex; gap: 5px;">
+                            <input type="text" 
+                                name="q" 
+                                value="{{ query|default:'' }}" 
+                                placeholder="🔍 Buscar notas..." 
+                                style="width: 200px; padding: 8px; margin: 0; border: 1px solid #ddd; border-radius: 5px;">
+                            <button type="submit" style="background: #007bff; color: white; padding: 8px 15px; border: none; border-radius: 5px; cursor: pointer;">Buscar</button>
+                            {% if query %}
+                                <a href="{% url 'lista_notas' %}" style="background: #6c757d; color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px;">Limpiar</a>
+                            {% endif %}
+                        </form>
+                        
+                        <span class="user-welcome">👤 Hola, <strong>{{ user.username }}</strong></span>
+                        <a href="{% url 'logout' %}" class="btn-logout">🚪 Cerrar Sesión</a>
+                        <a href="{% url 'crear_nota' %}" class="btn-nueva">➕ Nueva Nota</a>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="btn-login-header">🔐 Iniciar Sesión</a>
+                        <a href="{% url 'registro' %}" class="btn-registro-header">📝 Registrarse</a>
+                    {% endif %}
+                </div>
             </div>
-        </div>
         
         <!-- Mensajes -->
         {% if messages %}

@@ -1,17 +1,12 @@
 {% extends 'notas/base.html' %}
 
 {% block content %}
-<div class="nav">
-    <h1>Mis Notas</h1>
-    <a href="{% url 'crear_nota' %}" class="btn-nueva">+ Nueva Nota</a>
-</div>
-
 <div class="notas-grid">
     {% for nota in notas %}
     <div class="nota-card">
         <h3>{{ nota.titulo }}</h3>
         <p>{{ nota.contenido|truncatewords:30 }}</p>
-        <small>Creada: {{ nota.fecha_creacion|date:"d/m/Y H:i" }}</small>
+        <small>📅 Creada: {{ nota.fecha_creacion|date:"d/m/Y H:i" }}</small>
         <div class="acciones">
             <a href="{% url 'editar_nota' nota.id %}" class="btn-editar">✏️ Editar</a>
             <form method="post" action="{% url 'eliminar_nota' nota.id %}" style="display: inline; padding: 0; box-shadow: none;">
@@ -22,8 +17,13 @@
     </div>
     {% empty %}
     <div class="empty-state">
-        <p>No tienes notas aún</p>
-        <a href="{% url 'crear_nota' %}" class="btn-nueva">Crear mi primera nota</a>
+        {% if query %}
+            <p>🔍 No se encontraron notas que coincidan con "{{ query }}"</p>
+            <a href="{% url 'lista_notas' %}" class="btn-nueva">Ver todas las notas</a>
+        {% else %}
+            <p>📭 No tienes notas aún</p>
+            <a href="{% url 'crear_nota' %}" class="btn-nueva">Crear mi primera nota</a>
+        {% endif %}
     </div>
     {% endfor %}
 </div>

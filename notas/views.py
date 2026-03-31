@@ -6,11 +6,24 @@ from django.contrib.auth import login, authenticate, logout
 from .models import Nota
 from .forms import NotaForm, RegistroForm
 
+
+def get_query(request):
+    """Función auxiliar para obtener query de búsqueda"""
+    return request.GET.get('q', '')
+
 @login_required
 def lista_notas(request):
-    # Solo mostrar notas del usuario actual
+    # Obtener el término de búsqueda de la URL
+    query = request.GET.get('q', '')
+    
+    # Filtrar notas del usuario actual
     notas = Nota.objects.filter(usuario=request.user)
-    return render(request, 'notas/lista_notas.html', {'notas': notas})
+    
+    # Si hay término de búsqueda, filtrar por título
+    if query:
+        notas = notas.filter(titulo__icontains=query)
+    
+    return render(request, 'notas/lista_notas.html', {'notas': notas, 'query': query})
 
 @login_required
 def crear_nota(request):
