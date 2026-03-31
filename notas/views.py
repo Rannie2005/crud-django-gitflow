@@ -97,3 +97,33 @@ def logout_view(request):
     logout(request)
     messages.success(request, 'Sesión cerrada exitosamente')
     return redirect('login')
+
+@login_required
+def perfil(request):
+    query = get_query(request)
+    usuario = request.user
+    notas_count = Nota.objects.filter(usuario=usuario).count()
+    
+    if request.method == 'POST':
+        # Actualizar perfil
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        telefono = request.POST.get('telefono')
+        
+        if username:
+            usuario.username = username
+        if email:
+            usuario.email = email
+        if telefono:
+            usuario.perfil.telefono = telefono
+            usuario.perfil.save()
+        
+        usuario.save()
+        messages.success(request, '¡Perfil actualizado exitosamente!')
+        return redirect('perfil')
+    
+    return render(request, 'notas/perfil.html', {
+        'usuario': usuario,
+        'notas_count': notas_count,
+        'query': query
+    })
