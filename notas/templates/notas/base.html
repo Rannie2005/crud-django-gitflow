@@ -13,295 +13,369 @@
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f5f5f5;
-            padding: 20px;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+            padding: 30px 20px;
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1280px;
             margin: 0 auto;
         }
         
-        .nav {
+        /* Header / Navbar */
+        .navbar {
             background: white;
-            padding: 15px 25px;
-            border-radius: 10px;
-            margin-bottom: 30px;
+            border-radius: 20px;
+            padding: 12px 24px;
+            margin-bottom: 32px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             display: flex;
+            flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        
-        .nav h1 {
-            margin: 0;
-            font-size: 24px;
-            color: #333;
-        }
-        
-        .nav-buttons {
-            display: flex;
             gap: 15px;
+        }
+        
+        .logo {
+            display: flex;
             align-items: center;
+            gap: 10px;
         }
         
-        .user-welcome {
-            color: #555;
+        .logo i {
+            font-size: 28px;
+            color: #4f46e5;
+        }
+        
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
+        /* Search form */
+        .search-form {
+            display: flex;
+            gap: 8px;
+            background: #f3f4f6;
+            padding: 4px 8px;
+            border-radius: 40px;
+        }
+        
+        .search-form input {
+            background: transparent;
+            border: none;
+            padding: 8px 12px;
             font-size: 14px;
+            width: 180px;
+            outline: none;
         }
         
-        .user-welcome strong {
-            color: #007bff;
-        }
-        
-        .btn-nueva {
-            display: inline-block;
-            background: #28a745;
+        .search-form button {
+            background: #4f46e5;
+            border: none;
             color: white;
             padding: 8px 16px;
-            text-decoration: none;
-            border-radius: 5px;
-            border: none;
+            border-radius: 40px;
             cursor: pointer;
             font-size: 14px;
+            transition: background 0.2s;
         }
         
-        .btn-nueva:hover {
-            background: #218838;
+        .search-form button:hover {
+            background: #4338ca;
         }
         
-        .btn-editar {
-            background: #ffc107;
-            color: #333;
-            padding: 5px 10px;
-            text-decoration: none;
-            border-radius: 3px;
-            font-size: 14px;
-        }
-        
-        .btn-editar:hover {
-            background: #e0a800;
-        }
-        
-        .btn-eliminar {
-            background: #dc3545;
-            color: white;
-            padding: 5px 10px;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-        
-        .btn-eliminar:hover {
-            background: #c82333;
-        }
-        
-        .btn-guardar {
-            background: #007bff;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        
-        .btn-guardar:hover {
-            background: #0056b3;
-        }
-        
-        .btn-cancelar {
-            background: #6c757d;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-left: 10px;
-        }
-        
-        .btn-cancelar:hover {
-            background: #5a6268;
-        }
-        
-        .btn-login-header {
-            background: #007bff;
-            color: white;
+        .clear-btn {
+            background: #9ca3af;
             padding: 8px 16px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 14px;
-        }
-        
-        .btn-login-header:hover {
-            background: #0056b3;
-        }
-        
-        .btn-registro-header {
-            background: #28a745;
+            border-radius: 40px;
             color: white;
-            padding: 8px 16px;
             text-decoration: none;
-            border-radius: 5px;
             font-size: 14px;
+            transition: background 0.2s;
         }
         
-        .btn-registro-header:hover {
-            background: #218838;
+        .clear-btn:hover {
+            background: #6b7280;
         }
         
-        .btn-logout {
-            background: #dc3545;
+        /* Buttons */
+        .btn-outline {
+            padding: 8px 18px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: #4f46e5;
             color: white;
-            padding: 8px 16px;
-            text-decoration: none;
-            border-radius: 5px;
+        }
+        
+        .btn-primary:hover {
+            background: #4338ca;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: #f3f4f6;
+            color: #1f2937;
+        }
+        
+        .btn-secondary:hover {
+            background: #e5e7eb;
+        }
+        
+        .btn-danger {
+            background: #ef4444;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+        
+        .btn-warning {
+            background: #f59e0b;
+            color: white;
+        }
+        
+        .btn-warning:hover {
+            background: #d97706;
+        }
+        
+        .user-greeting {
+            background: #f3f4f6;
+            padding: 6px 14px;
+            border-radius: 40px;
             font-size: 14px;
+            color: #374151;
         }
         
-        .btn-logout:hover {
-            background: #c82333;
+        .user-greeting i {
+            color: #4f46e5;
+            margin-right: 6px;
         }
         
+        /* Cards Grid */
         .notas-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 24px;
         }
         
         .nota-card {
             background: white;
-            border-radius: 8px;
+            border-radius: 20px;
             padding: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        
-        .nota-card h3 {
-            color: #007bff;
-            margin-bottom: 10px;
-        }
-        
-        .nota-card p {
-            color: #666;
-            margin: 10px 0;
-            line-height: 1.5;
-        }
-        
-        .nota-card small {
-            color: #999;
-            font-size: 12px;
-            display: block;
-            margin-top: 10px;
-        }
-        
-        .acciones {
-            margin-top: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
             display: flex;
-            gap: 10px;
+            flex-direction: column;
+            height: 100%;
+            border: 1px solid rgba(0,0,0,0.03);
         }
         
-        form {
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-            max-width: 600px;
-            margin: 0 auto;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        .nota-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
         }
         
-        .form-group {
-            margin-bottom: 20px;
+        .nota-titulo {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-left: 4px solid #4f46e5;
+            padding-left: 12px;
         }
         
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            color: #333;
+        .nota-titulo i {
+            color: #4f46e5;
+            font-size: 1.2rem;
         }
         
-        input, textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 16px;
-            font-family: inherit;
+        .nota-contenido {
+            color: #6b7280;
+            line-height: 1.6;
+            margin-bottom: 16px;
+            flex: 1;
         }
         
-        input:focus, textarea:focus {
-            outline: none;
-            border-color: #007bff;
+        .nota-meta {
+            font-size: 12px;
+            color: #9ca3af;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 16px;
+            padding-top: 12px;
+            border-top: 1px solid #f3f4f6;
         }
         
-        .messages {
-            background: #d4edda;
-            color: #155724;
-            padding: 12px;
-            border-radius: 4px;
-            margin-bottom: 20px;
-            border: 1px solid #c3e6cb;
+        .nota-acciones {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
         }
         
-        .error-message {
-            background: #f8d7da;
-            color: #721c24;
-            padding: 12px;
-            border-radius: 4px;
-            margin-bottom: 20px;
-            border: 1px solid #f5c6cb;
+        .nota-acciones a, .nota-acciones button {
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 13px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
         }
         
+        .edit-btn {
+            background: #f3f4f6;
+            color: #4f46e5;
+        }
+        
+        .edit-btn:hover {
+            background: #e5e7eb;
+            transform: scale(1.02);
+        }
+        
+        .delete-btn {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+        
+        .delete-btn:hover {
+            background: #fecaca;
+        }
+        
+        /* Empty State */
         .empty-state {
             text-align: center;
-            padding: 50px;
+            padding: 60px 30px;
             background: white;
-            border-radius: 8px;
-            color: #666;
+            border-radius: 24px;
+            grid-column: 1 / -1;
+        }
+        
+        .empty-state i {
+            font-size: 64px;
+            color: #d1d5db;
+            margin-bottom: 20px;
+            display: block;
         }
         
         .empty-state p {
+            color: #6b7280;
+            font-size: 1.1rem;
             margin-bottom: 20px;
-            font-size: 18px;
+        }
+        
+        /* Messages */
+        .alert {
+            padding: 14px 20px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .alert-success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        
+        .alert-error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .nav-links {
+                justify-content: center;
+            }
+            
+            .search-form {
+                width: 100%;
+            }
+            
+            .search-form input {
+                flex: 1;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Barra de navegación -->
-            <div class="nav">
-                <h1><i class="bi bi-journal-bookmark-fill"></i> Mis Notas</h1>
-                <div class="nav-buttons">
-                    {% if user.is_authenticated %}
-                        <form method="get" action="{% url 'lista_notas' %}" style="margin: 0; padding: 0; background: none; box-shadow: none; display: flex; gap: 5px;">
-                            <input type="text" name="q" value="{{ query|default:'' }}" placeholder=" Buscar notas..." style="width: 200px; padding: 8px; margin: 0; border: 1px solid #ddd; border-radius: 5px;">
-                            <button type="submit" style="background: #007bff; color: white; padding: 8px 15px; border: none; border-radius: 5px; cursor: pointer;"><i class="bi bi-search"></i> Buscar</button>
-                            {% if query %}
-                                <a href="{% url 'lista_notas' %}" style="background: #6c757d; color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px;"><i class="bi bi-x-circle"></i> Limpiar</a>
-                            {% endif %}
-                        </form>
-                        
-                        <a href="{% url 'perfil' %}" class="btn-perfil"><i class="bi bi-person-circle"></i> Mi Perfil</a>
-                        <span class="user-welcome"><i class="bi bi-person-check"></i> Hola, <strong>{{ user.username }}</strong></span>
-                        <a href="{% url 'logout' %}" class="btn-logout"><i class="bi bi-box-arrow-right"></i> Cerrar Sesión</a>
-                        <a href="{% url 'crear_nota' %}" class="btn-nueva"><i class="bi bi-plus-circle"></i> Nueva Nota</a>
-                    {% else %}
-                        <a href="{% url 'login' %}" class="btn-login-header"><i class="bi bi-box-arrow-in-right"></i> Iniciar Sesión</a>
-                        <a href="{% url 'registro' %}" class="btn-registro-header"><i class="bi bi-person-plus"></i> Registrarse</a>
-                    {% endif %}
-                </div>
+        <!-- Navbar -->
+        <div class="navbar">
+            <div class="logo">
+                <i class="bi bi-journal-bookmark-fill"></i>
+                <h1>NotasApp</h1>
             </div>
-        
-        <!-- Mensajes -->
-        {% if messages %}
-        <div class="messages">
-            {% for message in messages %}
-                {{ message }}
-            {% endfor %}
+            
+            <div class="nav-links">
+                {% if user.is_authenticated %}
+                    <form method="get" action="{% url 'lista_notas' %}" class="search-form">
+                        <input type="text" name="q" value="{{ query|default:'' }}" placeholder="Buscar notas...">
+                        <button type="submit"><i class="bi bi-search"></i> Buscar</button>
+                        {% if query %}
+                            <a href="{% url 'lista_notas' %}" class="clear-btn"><i class="bi bi-x-lg"></i> Limpiar</a>
+                        {% endif %}
+                    </form>
+                    
+                    <a href="{% url 'perfil' %}" class="btn-outline btn-secondary"><i class="bi bi-person-circle"></i> Perfil</a>
+                    <span class="user-greeting"><i class="bi bi-person-check-fill"></i> {{ user.username }}</span>
+                    <a href="{% url 'logout' %}" class="btn-outline btn-danger"><i class="bi bi-box-arrow-right"></i> Salir</a>
+                    <a href="{% url 'crear_nota' %}" class="btn-outline btn-primary"><i class="bi bi-plus-lg"></i> Nueva</a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn-outline btn-primary"><i class="bi bi-box-arrow-in-right"></i> Iniciar</a>
+                    <a href="{% url 'registro' %}" class="btn-outline btn-secondary"><i class="bi bi-person-plus"></i> Registrarse</a>
+                {% endif %}
+            </div>
         </div>
+        
+        <!-- Messages -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{% if message.tags == 'error' %}error{% else %}success{% endif %}">
+                    <i class="bi bi-{% if message.tags == 'error' %}exclamation-triangle-fill{% else %}check-circle-fill{% endif %}"></i>
+                    {{ message }}
+                </div>
+            {% endfor %}
         {% endif %}
         
-        
+        <!-- Content -->
         {% block content %}
         {% endblock %}
     </div>
