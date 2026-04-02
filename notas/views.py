@@ -18,15 +18,15 @@ def get_query(request):
 
 @login_required
 def lista_notas(request):
-    query = get_query(request)
+    # Obtener el término de búsqueda de la URL
+    query = request.GET.get('q', '')
+    
+    # Filtrar notas del usuario actual
     notas = Nota.objects.filter(usuario=request.user)
     
+    # Si hay término de búsqueda, filtrar por título
     if query:
-        
-        notas = notas.filter(
-            models.Q(titulo__icontains=query) | 
-            models.Q(contenido__icontains=query)
-        )
+        notas = notas.filter(titulo__icontains=query)
     
     return render(request, 'notas/lista_notas.html', {'notas': notas, 'query': query})
 
